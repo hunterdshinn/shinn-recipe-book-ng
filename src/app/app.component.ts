@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import * as firebase from 'firebase/app'
 })
 export class AppComponent implements OnInit{
   
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     var config = {
@@ -20,6 +21,8 @@ export class AppComponent implements OnInit{
       messagingSenderId: "409404404627"
     }
     firebase.initializeApp(config)  
+
+    this.router.navigate([''])
   } 
 
 }
