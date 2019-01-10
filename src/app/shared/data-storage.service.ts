@@ -1,7 +1,7 @@
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
+import 'firebase/database'
 import { Injectable } from '@angular/core';
 import { RecipeService } from '../recipes/recipe.service';
-import { Recipe } from '../recipes/recipe.model';
 
 @Injectable()
 export class DataStorageService {
