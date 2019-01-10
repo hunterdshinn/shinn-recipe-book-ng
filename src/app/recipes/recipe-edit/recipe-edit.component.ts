@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
   recipeForm: FormGroup
@@ -16,7 +17,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private recipeService: RecipeService, 
-    private router: Router
+    private router: Router,
+    private dataStorageService: DataStorageService
   ) { }
 
   ngOnInit() {
@@ -91,6 +93,9 @@ export class RecipeEditComponent implements OnInit {
       'ingredients': recipeIngredients
     })
   }
-
+  
+  ngOnDestroy() {
+    this.dataStorageService.saveToDb()
+  }
 }
 
