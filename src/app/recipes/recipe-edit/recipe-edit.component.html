@@ -32,6 +32,9 @@
                 formControlName="name"
                 class="form-control"
               >
+              <span *ngIf="recipeForm.get('name').errors?.maxlength" class="text-danger">
+                Recipe name must not exceed 20 characters
+              </span>
             </div>
           </div>
         </div>

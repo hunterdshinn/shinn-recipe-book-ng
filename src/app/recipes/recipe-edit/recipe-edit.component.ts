@@ -87,7 +87,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     }
 
     this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName, Validators.required),
+      'name': new FormControl(recipeName, [Validators.required, Validators.maxLength(20)]),
       'imagePath': new FormControl(recipeImagePath, Validators.required),
       'description': new FormControl(recipeDescription, Validators.required),
       'ingredients': recipeIngredients
