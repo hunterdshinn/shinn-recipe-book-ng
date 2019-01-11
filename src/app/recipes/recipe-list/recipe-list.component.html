@@ -12,6 +12,11 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
+    <img 
+      *ngIf="recipes.length === 0"
+      src="../../../assets/img/loader.gif" 
+      class="loading-style"
+    >
     <app-recipe-item
       *ngFor="let recipeEl of recipes; let i = index"
       [recipe]="recipeEl"
