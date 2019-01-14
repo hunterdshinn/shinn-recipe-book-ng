@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
@@ -9,7 +9,7 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.css']
 })
-export class RecipeEditComponent implements OnInit, OnDestroy {
+export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
   recipeForm: FormGroup
@@ -36,6 +36,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value)
     }
+
+    this.dataStorageService.saveToDb()
 
     // Ran into a warning message with submitting the form and navigating away through the onCancel method
     // As a workaround I used setTimeout with no delay before calling the onCancel method to navigate away
@@ -87,15 +89,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     }
 
     this.recipeForm = new FormGroup({
-      'name': new FormControl(recipeName, [Validators.required, Validators.maxLength(20)]),
+      'name': new FormControl(recipeName, [Validators.required, Validators.maxLength(30)]),
       'imagePath': new FormControl(recipeImagePath, Validators.required),
       'description': new FormControl(recipeDescription, Validators.required),
       'ingredients': recipeIngredients
     })
-  }
-  
-  ngOnDestroy() {
-    this.dataStorageService.saveToDb()
   }
 }
 
